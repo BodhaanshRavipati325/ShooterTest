@@ -7,9 +7,11 @@
 
 package frc.team3039.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.team3039.robot.subsystems.Turret;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,6 +30,15 @@ public class Robot extends TimedRobot
      * This method is run when the robot is first started up and should be used for any
      * initialization code.
      */
+
+    public static Turret mTurret = new Turret();
+
+    public static double targetValid; //Whether the limelight has any valid targets (0 or 1)
+    public static double targetX; //Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
+    public static double targetY; //Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
+    public static double targetArea; //Target Area (0% of image to 100% of image)
+    public static double targetSkew; //Skew or rotation (-90 degrees to 0 degrees)
+
     @Override
     public void robotInit()
     {
@@ -51,6 +62,12 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+
+        targetValid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+        targetX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        targetY = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+        targetArea = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+        targetSkew = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts").getDouble(0);
     }
 
     /**

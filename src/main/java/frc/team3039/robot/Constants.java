@@ -15,12 +15,25 @@ package frc.team3039.robot;
  * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants 
-{
-    public static final double kShooterkP = 0.02;
-    public static final double kShooterkI = 0.0001;
+public final class Constants {
+    public static final double kLooperDt = 0.01;
+    //Shooter PID Values
+    public static final double kShooterkP = 0.05;
+    public static final double kShooterkI = 0.000;
     public static final double kShooterkD = 0.0;
-    public static final double kShooterkF = 0.03;
-    public static final int kShooterkIZone = 2000;
+    public static final double kShooterkF = 0.055;
+    public static final int kShooterkIZone = 200;
     public static final double kShooterMaxPrecentOutput = .95;
+
+    //Variables to determine when to switch from Calculate to Hold
+    public static double kShooterMinTrackStability = 0.25;
+    public static double kShooterStartOnTargetRpm = 50.0;
+    public static double kShooterStopOnTargetRpm = 150.0;
+    public static int kShooterKfBufferSize = 20;
+    public static int kShooterMinOnTargetSamples = 20;
+    //Turret PID Values
+    public static final double kTurretkP = 0.035;
+    public static final double kTurretkI = 0;
+    public static final double kTurretkD = 0;
+
 }
